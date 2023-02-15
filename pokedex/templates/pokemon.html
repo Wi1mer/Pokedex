@@ -1,0 +1,143 @@
+{% extends "pokedex/templates/base.html" %}
+
+{% block title %}{{pokemon.name|title}}{% endblock %}
+
+{% block content %}
+
+<style>
+    .card::before {
+        content: "";
+        width: 104%;
+        height: 102%;
+        border-radius: 8px;
+
+        background-image: linear-gradient(var(--rotate), {{ pokemon.border_average.0 }}, {{ pokemon.border_average.1 }} 43%, {{ pokemon.border_average.2}});
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+    }
+
+    .card::after {
+        position: absolute;
+        content: "";
+        top: calc(var(--card-height) / 6);
+        left: 0;
+        right: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+        transform: scale(0.8);
+        filter: blur(calc(var(--card-height) / 6));
+
+        background-image: linear-gradient(var(--rotate), {{ pokemon.border_average.0 }}, {{ pokemon.border_average.1 }} 43%, {{ pokemon.border_average.2 }});
+    opacity: 1;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+    }
+</style>
+
+<div class="row mt-1">
+    <div class="col-3"></div>
+    <div class="col-6 justify-content-center">
+        <div class="card card-background rounded-3 mx-auto mt-5" style="max-width: 22rem;" id="{{pokemon.id}}">
+            <div class="row g-0">
+                <div class="card-header">
+                    <div class="row bg-white rounded my-auto">
+                        <div class="col-3 {{pokemon.bg_average}} rounded">
+                            <p class="card-text fw-bold text-start">#{{pokemon.id}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text text-center text-uppercase text-truncate">{{pokemon.name}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="card-text text-end text-muted fst-italic">{{pokemon.base_experience}} EXp</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-xl-12 col-xxl-12">
+                </div>
+                <div class="col-xl-12 col-xxl-12">
+                    <div class="card-body text-center">
+                        {% if pokemon.img %}
+                        <img class="img-fluid img-bg rounded-circle" src="{{pokemon.img}}" alt="{{pokemon.name}}">
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" class="bi bi-eye-slash-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                            <path
+                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                        </svg>
+                        {% endif %}
+
+
+                    </div>
+
+                    <div class="row bg-white rounded mx-1 my-1">
+                        <div class="col-5">
+                            <p class="card-text text-start fst-italic ">{{pokemon.height}} m / {{pokemon.weight}} kg</p>
+                        </div>
+                        <!-- <div class="col-3">
+                            <p class="card-text text-center text-muted fst-italic">{{pokemon.base_experience}} EXp</p>
+                        </div> -->
+                        <div class="col-7">
+                            <p class="card-text text-end text-muted fst-italic">
+                                {% for type in pokemon.types %}
+                                *{{ type.type.name }}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+        
+                <div class="card-footer">
+        
+                    <!-- <p class="card-text text-sm-end text-md-center text-lg-center text-xl-end text-xxl-end"> -->
+                    <div class="row text-center lh-1">
+                        <div class="col-4 {{pokemon.bg_hp}} border-end" style="border-top-left-radius:5px">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.hp}}</span><br>
+                            <span class="fst-italic fs-6">Hp</span><br><br>
+                        </div>
+                        <div class="col-4 {{pokemon.bg_defense}}">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.defense}}</span><br>
+                            <span class="fst-italic fs-6">Defensa</span><br><br>
+                        </div>
+                        <div class="col-4 {{pokemon.bg_special_defense}}" style="border-top-right-radius:5px">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.special_defense}}</span><br>
+                            <span class="fst-italic fs-6">Dfs. Especial</span><br><br>
+                        </div>
+        
+                        <div class="col-4 {{pokemon.bg_speed}} border-top border-end" style="border-bottom-left-radius:5px">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.speed}}</span><br>
+                            <span class="fst-italic fs-6">Velocidad</span><br><br>
+                        </div>
+                        <div class="col-4 {{pokemon.bg_attack}} border-top">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.attack}}</span><br>
+                            <span class="fst-italic fs-6">Ataque</span><br><br>
+                        </div>
+                        <div class="col-4 {{pokemon.bg_special_attack}} border-top" style="border-bottom-right-radius:5px">
+                            <span><br></span>
+                            <span class="fw-bold">{{pokemon.special_attack}}</span><br>
+                            <span class="fst-italic fs-6">Atq. Especial</span><br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+
+    </div>
+    <div class="col-3"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "pokedex/templates/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8 mt-2">
+      <div class="row">
+        <h1 class="text-center text-capitalize my-3">Pokemones</h1>
+        {% if pokemons %}
+        {% for pokemon in pokemons %}
+        <div class="col-3 mb-sm-0 my-3">
+          <div class="card">
+            <div class="card-body text-center">
+              <h4 class="card-title text-capitalize">{{pokemon.name}}</h4>
+              <p class="fs-6 fst-italic">
+                <a class="btn btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" href="../pokemon/{{ pokemon.url|cut:'https://pokeapi.co/api/v2/pokemon/'|cut:'/'}}">
+                  Ver Detalles
+                </a>
+
+              </p>
+    
+            </div>
+          </div>
+        </div>
+    
+        {% endfor %}
+        {% else %}
+          <h5>No hay elementos que mostrar</h5>
+        <!-- posiblemente -> error con la api -->
+          <p>*Error l cargar</p> 
+        {% endif %}
+      </div>
+    
+    </div>
+    <div class="col-2"></div>
+</div>
+{% endblock %}

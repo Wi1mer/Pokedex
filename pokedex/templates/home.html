@@ -1,0 +1,58 @@
+{% extends "pokedex/templates/base.html" %}
+
+{% block title %} Pokedex {% endblock %}
+
+{% block content %}  
+
+<div class="row">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="col-4">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/dragonite-3.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/articuno.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/zapdos.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/moltres.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/flareon-4.gif" alt="">
+    </div>
+    <div class="col-4 text-center">
+        <br><br><br>
+        <h1 class="text-uppercase">Bienvenido</h1>
+        <!-- <br> -->
+        <h4>Todos los pokemones en un solo lugar!!!!!!!!!!!</h4> <br>
+
+        <div class="btn-group" role="group">
+            {% if user.is_authenticated %}
+                <a class="btn btn-outline-danger text-uppercase" href="{% url 'cerrar_sesion' %}">
+                    Cerrar Sesión
+                    <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados-espalda/pikachu.gif" alt="">
+                </a>
+            {% else %}
+                <a class="btn btn-success" href="{% url 'loguear' %}">Iniciar sesión</a>
+                <a class="btn btn-info" href="{% url 'registro' %}">Registrarme</a>
+            {% endif %}
+        </div>
+
+        <br><br>
+
+        <h5>*Recuerda que para poder ver los detalles de cada pokemon debes 
+            <span class="text-uppercase bg-light text-warning">iniciar sesión</span>
+        </h5>
+
+        <br><br>
+
+        <a class="btn btn-outline-info" href="{% url 'pokemons' %}"><i class="bi bi-card-list"></i> Ver pokemones</a>
+
+    </div>
+    <div class="col-4">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/lapras-2.gif" alt="">
+        
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/charizard.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/bulbasaur-3.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/pikachu-5.gif" alt="">
+        <img src="https://www.pkparaiso.com/imagenes/xy/sprites/animados/meowstic-2.gif" alt="">
+
+    </div>
+</div>
+
+{% endblock %}
+    
